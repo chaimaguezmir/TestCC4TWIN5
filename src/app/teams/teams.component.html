@@ -1,0 +1,66 @@
+<form [formGroup]="teamForm" (ngSubmit)="addTeam()">
+  <div>
+    <label for="name">Team Name:</label>
+    <input id="name" formControlName="name" />
+    <div *ngIf="teamForm.get('name')?.invalid && teamForm.get('name')?.touched">
+      <small *ngIf="teamForm.get('name')?.errors?.['required']">
+        Team name is required.
+      </small>
+      <small *ngIf="teamForm.get('name')?.errors?.['pattern']">
+        Only alphanumeric characters are allowed.
+      </small>
+    </div>
+  </div>
+
+  <div>
+    <label for="projectName">Project Name:</label>
+    <input id="projectName" formControlName="projectName" />
+    <div
+      *ngIf="
+        teamForm.get('projectName')?.invalid &&
+        teamForm.get('projectName')?.touched
+      "
+    >
+      <small *ngIf="teamForm.get('projectName')?.errors?.['required']">
+        Project name is required.
+      </small>
+      <small *ngIf="teamForm.get('projectName')?.errors?.['pattern']">
+        Only alphanumeric characters are allowed.
+      </small>
+    </div>
+  </div>
+
+  <div>
+    <label for="level">Level:</label>
+    <input id="level" formControlName="level" />
+    <div *ngIf="teamForm.get('level')?.invalid && teamForm.get('level')?.touched">
+      <small *ngIf="teamForm.get('level')?.errors?.['required']">
+        Level is required.
+      </small>
+      <small *ngIf="teamForm.get('level')?.errors?.['pattern']">
+        Only alphanumeric characters are allowed.
+      </small>
+    </div>
+  </div>
+
+  <div>
+    <label for="projectDescription">Project Description:</label>
+    <textarea id="projectDescription" formControlName="projectDescription"></textarea>
+    <div
+      *ngIf="
+        teamForm.get('projectDescription')?.invalid &&
+        teamForm.get('projectDescription')?.touched
+      "
+    >
+      <small *ngIf="teamForm.get('projectDescription')?.errors?.['required']">
+        Project description is required.
+      </small>
+      <small *ngIf="teamForm.get('projectDescription')?.errors?.['minlength']">
+        Minimum 5 characters required.
+      </small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="teamForm.invalid">Add Team</button>
+</form>
+

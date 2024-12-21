@@ -1,0 +1,43 @@
+<div class="form-container">
+    <form [formGroup]="teamForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="teamName">Nom de l'équipe :</label>
+        <input id="teamName" formControlName="teamName" type="text" placeholder="Entrez le nom de l'équipe" />
+        <div *ngIf="teamForm.get('teamName')?.invalid && teamForm.get('teamName')?.touched">
+          <small class="error" *ngIf="teamForm.get('teamName')?.hasError('required')">Le nom de l'équipe est obligatoire.</small>
+          <small class="error" *ngIf="teamForm.get('teamName')?.hasError('pattern')">Le nom de l'équipe ne doit contenir que des lettres ou des chiffres.</small>
+        </div>
+      </div>
+
+      <div formArrayName="participants">
+        <div *ngFor="let participant of participants.controls; let i = index;" [formGroupName]="i" class="participant-group">
+          <label for="participantName">Nom du participant :</label>
+          <input id="participantName" formControlName="name" type="text" placeholder="Nom du participant" />
+          <div *ngIf="participant.get('name')?.invalid && participant.get('name')?.touched">
+            <small class="error" *ngIf="participant.get('name')?.hasError('required')">Le nom du participant est obligatoire.</small>
+            <small class="error" *ngIf="participant.get('name')?.hasError('pattern')">Le nom du participant ne doit contenir que des lettres ou des chiffres.</small>
+          </div>
+
+          <label for="participantEmail">Email :</label>
+          <input id="participantEmail" formControlName="email" type="email" placeholder="Email du participant" />
+          <div *ngIf="participant.get('email')?.invalid && participant.get('email')?.touched">
+            <small class="error" *ngIf="participant.get('email')?.hasError('required')">L'email est obligatoire.</small>
+            <small class="error" *ngIf="participant.get('email')?.hasError('email')">L'email doit être valide.</small>
+          </div>
+        </div>
+      </div>
+      <button type="button" (click)="addParticipant()">add PARTICIPANT</button>
+
+
+      <div class="form-group">
+        <label for="projectDescription">Description du projet (optionnel) :</label>
+        <input id="projectDescription" formControlName="projectDescription" type="text" placeholder="Entrez la description du projet" />
+        <div *ngIf="teamForm.get('projectDescription')?.invalid && teamForm.get('projectDescription')?.touched">
+          <small class="error" *ngIf="teamForm.get('projectDescription')?.hasError('minlength')">La description du projet doit contenir au moins 5 caractères.</small>
+        </div>
+      </div>
+
+
+      <button type="submit" [disabled]="teamForm.invalid">ADD TEAM</button>
+    </form>
+  </div>
